@@ -4,13 +4,14 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import pandas as pd
 import secrets
 from fastapi import HTTPException, status
+import os
 
 app = FastAPI(title="Berkshire Map API")
 
 # ---------- BASIC AUTH SETUP ----------
 security = HTTPBasic()
-USERNAME = "admin"         # choose any username you like
-PASSWORD = "secret123"     # choose any password you like
+USERNAME = os.getenv("USERNAME")      # fallback if not found
+PASSWORD = os.getenv("PASSWORD")  # fallback if not found
 
 def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
     correct_user = secrets.compare_digest(credentials.username, USERNAME)
