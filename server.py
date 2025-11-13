@@ -25,13 +25,15 @@ def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
 
 
 # ---------- LOAD DATA ON STARTUP ----------
-clients = pd.read_csv("data/clients_geo.csv")
+CLIENTS_URL = "https://drive.google.com/file/d/1aBewbYdmS1XVhY82SMy_S_XCSd3q_4J_/view?usp=sharing"
+CLINICS_URL = "https://drive.google.com/file/d/12JjKcSid2LxdhAEDElqqFt1LvczpcRWa/view?usp=sharing"
+clients = pd.read_csv(CLIENTS_URL)
 clients["date"] = pd.to_datetime(
     clients["date"].astype(str).str.strip(),
     errors="coerce",
     dayfirst=True
 )
-clinics = pd.read_csv("data/clinics_geo.csv")
+clinics = pd.read_csv(CLINICS_URL)
 
 
 # ---------- ROUTES ----------
